@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>CUTURL</title>
+</head>
+<body>
+    
+    <form th:action="@{/generate}" method="post">
+        <p><input type="text" th:field="${link.longURL}" /></p>
+        <p><input type="submit" value="CUT!" /></p>
+    </form>
+</body>
+</html>

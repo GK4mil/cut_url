@@ -9,13 +9,17 @@ import com.cuturl.model.Link;
 
 @Service
 public class LinkService {
+	@Autowired
 	private LinkRepository linkRepository;
 
-	@Autowired
-	public void setLinkRepository(LinkRepository linkRepository) {
-		this.linkRepository = linkRepository;
+	
+	
+	public String getLink(String code)
+	{
+		return linkRepository.findFistByCode(code).getLongURL();
+		
 	}
-
+	
 	public Link addLink(Link link, int count) {
 		String code = codeGeneration(count);
 		if (linkRepository.findFistByLongURL(link.getLongURL()) != null) {

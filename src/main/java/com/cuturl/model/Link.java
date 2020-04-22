@@ -16,7 +16,7 @@ public class Link {
 	@NotNull
 	String longURL;
 	@NotNull
-	String shortURL;
+	String code;
 	
 	public Long getID() {
 		return ID;
@@ -30,12 +30,11 @@ public class Link {
 	public void setLongURL(String longURL) {
 		this.longURL = longURL;
 	}
-	public String getShortURL() {
-		return shortURL;
-	}
-	public void setShortURL(String shortURL) {
-		this.shortURL = shortURL;
-	}
 	
-	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 }

@@ -17,30 +17,21 @@ public class LinkController {
 	@Autowired
 	private LinkService linkService;
 
-	@GetMapping("/")
-	String home(Model model) {
-		model.addAttribute("link",new Link());
-		return "index";
-	}
-
-	@GetMapping("/example")
-	String example() {
-		return "example";
-	}
-	
 	@PostMapping("/generate")
 	String generate(@ModelAttribute Link link, @RequestParam String longURL, Model model) {
-		model.addAttribute("longURL",link.getLongURL());
+		model.addAttribute("longURL", link.getLongURL());
 		return "result";
 	}
 
-	@GetMapping("/s/{code}")
-	String redirecting(@PathVariable String code) {
-		System.out.println(code);
-		if (linkService.getLink(code) != null)
+	@GetMapping("/{code}")
+	String redirecting(Model model, @PathVariable String code) {
+
+		if (code != null) {
 			return "redirect:" + linkService.getLink(code);
-		else
-			return "redirect:index";
+		} else {
+			model.addAttribute("link", new Link());
+			return "index";
+		}
 	}
 
 }

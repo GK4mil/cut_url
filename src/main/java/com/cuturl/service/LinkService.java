@@ -22,10 +22,11 @@ public class LinkService {
 	
 	public Link addLink(Link link, int count) {
 		String code = codeGeneration(count);
-		if (linkRepository.findFistByLongURL(link.getLongURL()) != null) {
+		if (linkRepository.findFistByLongURL(link.getLongURL()) == null) {
 			while (linkRepository.findFistByCode(code) != null) {
 				code = codeGeneration(count);
 			}
+			link.setCode(code);
 			return linkRepository.save(link);
 		} else {
 			return linkRepository.findFistByLongURL(link.getLongURL());
@@ -37,18 +38,19 @@ public class LinkService {
 		Random a = new Random();
 		String code = "";
 		for (int i = 0; i < count; i++) {
-			switch (a.nextInt(3) + 1) {
+			switch (a.nextInt(3)) {
+			case 0:
+				code += (char) (a.nextInt(10) + 48);
+				break;
 			case 1:
-				code += (char) a.nextInt(10) + 48;
+				code += (char) (a.nextInt(25) + 65);
 				break;
 			case 2:
-				code += (char) a.nextInt(25) + 65;
-				break;
-			case 3:
-				code += (char) a.nextInt(25) + 97;
+				code += (char) (a.nextInt(25) + 97);
 				break;
 			}
 		}
+		System.out.println(code);
 		return code;
 	}
 }

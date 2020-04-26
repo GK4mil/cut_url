@@ -16,13 +16,13 @@ public class LinkController {
 	@Autowired
 	private LinkService linkService;
 
-	@PostMapping("/generate")
+	@PostMapping("/generate/start")
 	String generate(@ModelAttribute Link link, Model model) {
 		System.out.println("generating");
 		if (!(link.getLongURL().contains("https://") || link.getLongURL().contains("http://")))
 			link.setLongURL("http://" + link.getLongURL());
 		linkService.addLink(link, 5);
-		model.addAttribute("tinyURL", "localhost:8080/c/" + link.getCode());
+		model.addAttribute("tinyURL", "localhost:8080/" + link.getCode());
 		return "result";
 	}
 
@@ -32,28 +32,13 @@ public class LinkController {
 		return "index";
 	}
 
-	@GetMapping("/c/{code}")
+	@GetMapping("/{code}")
 	String code(Model model, @PathVariable String code) {
 		System.out.println(code.length());
 		if (code.length() > 0) {
 			System.out.println("code exists");
 			return "redirect:" + linkService.getLink(code);
-		} else {
-			System.out.println("no code");
-			model.addAttribute("link", new Link());
+		} else
 			return "redirect:/";
-		}
 	}
-
-//	@RequestMapping(value="/{url}", method = RequestMethod.GET)
-//	public ModelAndView method(#PathVariable("url") String url) {
-//	String original = database.getLongUrl(UrlShortener.decode(url));
-//	return new ModelAndView("redirect:" + original);
-	// }
-//	@GetMapping("/test")
-//	String test(Model model) {
-//		model.addAttribute("code",linkService.codeGeneration(5));
-//		return "test";
-//	}
-
 }

@@ -16,7 +16,11 @@ public class LinkService {
 	
 	public String getLink(String code)
 	{
-		return linkRepository.findFistByCode(code).getLongURL();
+		Link result=linkRepository.findFistByCode(code);
+		if(result!=null)
+		return result.getLongURL();
+		else
+			return "";
 		
 	}
 	
@@ -50,7 +54,6 @@ public class LinkService {
 				break;
 			}
 		}
-		System.out.println(code);
 		return code;
 	}
 }

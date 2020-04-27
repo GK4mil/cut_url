@@ -24,6 +24,16 @@ public class LinkService {
 		
 	}
 	
+	public Link getObject(String code)
+	{
+		Link result=linkRepository.findFistByCode(code);
+		if(result!=null)
+		return result;
+		else
+			return null;
+		
+	}
+	
 	public Link addLink(Link link, int count) {
 		String code = codeGeneration(count);
 		if (linkRepository.findFistByLongURL(link.getLongURL()) == null) {

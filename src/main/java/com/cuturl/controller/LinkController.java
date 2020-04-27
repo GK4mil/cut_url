@@ -34,11 +34,6 @@ public class LinkController {
 
 	@GetMapping("/{code}")
 	String code(Model model, @PathVariable String code) {
-		System.out.println(code.length());
-		if (code.length() > 0) {
-			System.out.println("code exists");
 			return "redirect:" + linkService.getLink(code);
-		} else
-			return "redirect:/";
 	}
 }
